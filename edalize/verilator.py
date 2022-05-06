@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 import logging
-import multiprocessing
 import os
 import logging
 
@@ -207,13 +206,9 @@ class Verilator(Edatool):
         if not "mode" in self.tool_options:
             self.tool_options["mode"] = "cc"
 
-        # Do parallel builds with <number of cpus>
-        make_job_count = multiprocessing.cpu_count()
-        args = ["-j", str(make_job_count)]
-
         if self.tool_options["mode"] == "lint-only":
             args.append("V" + self.toplevel + ".mk")
-        self._run_tool("make", args, quiet=True)
+        self._run_tool("make", quiet=True)
 
     def run_main(self):
         self.check_managed_parser()
