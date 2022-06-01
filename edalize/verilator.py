@@ -205,10 +205,10 @@ class Verilator(Edatool):
         logger.info("Building simulation model")
         if not "mode" in self.tool_options:
             self.tool_options["mode"] = "cc"
-
+        args = []
         if self.tool_options["mode"] == "lint-only":
             args.append("V" + self.toplevel + ".mk")
-        self._run_tool("make", quiet=True)
+        self._run_tool("make", args, quiet=True)
 
     def run_main(self):
         self.check_managed_parser()
